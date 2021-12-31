@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "gofinances-app-rn",
+    "slug": "gofinances-app-rn",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "gofinances-app-rn"
+}
