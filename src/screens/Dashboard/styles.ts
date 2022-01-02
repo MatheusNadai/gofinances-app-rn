@@ -74,3 +74,4 @@ export const Title = styled.Text`
 `;
 
 export const TransactionList = styled.FlatList`` as unknown as typeof FlatList;
+
