@@ -1,6 +1,7 @@
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native'
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { Feather } from "@expo/vector-icons";
 
 export const Container = styled.View`
     flex: 1;
@@ -47,4 +48,15 @@ export const UserWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const PowerIcon = styled(Feather).attrs({ name: "power" })`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: ${RFValue(24)}px;
+`;
+
+export const HighlightCards = styled.ScrollView`
+  width: 100%;
+  position: absolute;
+  margin-top: ${RFPercentage(20)}px;
 `;
