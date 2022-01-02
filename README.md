@@ -27,19 +27,7 @@ npm -i
 
 #### Starting your project
 
-Android
-
-```
-yarn android
-```
-
-iOS
-
-```
-yarn ios
-```
-
-That's all :)
+```expo start```
 
 ## Some screenshots
 
