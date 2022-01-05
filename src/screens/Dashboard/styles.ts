@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { Feather } from "@expo/vector-icons";
 import { FlatList } from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
     flex: 1;
@@ -35,6 +36,8 @@ export const UserGretting = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
 `;
+
+export const LogoutButton = styled(BorderlessButton)``;
 
 export const UserName = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
@@ -74,4 +77,3 @@ export const Title = styled.Text`
 `;
 
 export const TransactionList = styled.FlatList`` as unknown as typeof FlatList;
-

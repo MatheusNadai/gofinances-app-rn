@@ -4,7 +4,7 @@ import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
 import TransactionCard from "../../components/TransactionCard";
 import { Transaction } from "../../components/TransactionCard/types";
-import { Container, Header, Photo, PowerIcon, User, UserGretting, UserInfo, UserName, UserWrapper, HighlightCards, Transactions, Title, TransactionList } from "./styles";
+import { Container, Header, Photo, PowerIcon, User, UserGretting, UserInfo, UserName, UserWrapper, HighlightCards, Transactions, Title, TransactionList, LogoutButton } from "./styles";
 
 export function Dashboard(){
     
@@ -58,7 +58,9 @@ export function Dashboard(){
                             <UserName>Matheus</UserName>
                         </User>
                     </UserInfo>
-                    <PowerIcon/>
+                    <LogoutButton onPress={() => {}}>
+                        <PowerIcon/>
+                    </LogoutButton>
                 </UserWrapper>
             </Header>
             <HighlightCards  

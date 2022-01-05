@@ -21,11 +21,9 @@ export function CategorySelectButton({
   onPress
 }: Props){
   return(
-      <GestureHandlerRootView>
-        <Container onPress={onPress}>
-            <Category>{title}</Category>
-            <Icon name="chevron-down"/>
-        </Container>
-    </GestureHandlerRootView>
+      <Container onPress={onPress}>
+          <Category>{title}</Category>
+          <Icon name="chevron-down"/>
+      </Container>
   )
 }
