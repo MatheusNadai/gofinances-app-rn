@@ -1,5 +1,8 @@
 
 import React from 'react';
+import 'react-native-gesture-handler'
+import 'intl'
+import 'intl/locale-data/jsonp/en'
 import { ThemeProvider } from 'styled-components/native';
 import AppLoading from 'expo-app-loading';
 import theme from './src/global/theme';

@@ -1,4 +1,7 @@
-import React from "react";
+import React from 'react';
+
+import { categories } from '../../utils/categories';
+
 import {
   Container,
   Title,
@@ -8,33 +11,48 @@ import {
   Icon,
   CategoryName,
   Date,
-} from "./styles";
-import { TransactionCardProps } from "./types";
+} from './styles';
 
-const categoryIcons: { [key: string]: string } = {
-  vendas: "dollar-sign",
-  compras: "shopping-bag",
-  alimentacao: "shopping-cart",
-};
-const TransactionCard = (props: TransactionCardProps) => {
-  const { transaction } = props;
-  const { title, amount, category, date, type } = transaction;
+export interface TransactionCardProps {
+  type: 'positive' | 'negative';
+  name: string;
+  amount: string;
+  category: string;
+  date: Date;
+}
+
+interface Props {
+  data: TransactionCardProps;
+}
+
+export function TransactionCard({ data } : Props){
+  const [ category ] = categories.filter(
+    item => item.key === data.category
+  );
+
   return (
     <Container>
-      <Title>{title}</Title>
-      <Amount type={type}>
-        {type === "D" && "-"}
-        {amount}
+      <Title>
+        {data.name}
+      </Title>
+
+      <Amount type={data.type}>
+        { data.type === 'negative' && '- ' }
+        { data.amount }
       </Amount>
+
       <Footer>
         <Category>
-          <Icon name={categoryIcons[category.slugname]} />
-          <CategoryName>{category.name}</CategoryName>
+          <Icon name= {category.icon} />
+          <CategoryName>
+            {category.name}
+          </CategoryName>
         </Category>
-        <Date>{date}</Date>
+
+        <Date>
+          {data.date}
+        </Date>
       </Footer>
     </Container>
-  );
-};
-
-export default TransactionCard;
+  )
+}

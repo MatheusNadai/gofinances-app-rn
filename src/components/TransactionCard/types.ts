@@ -3,15 +3,12 @@ interface Category {
     slugname: string;
 }
   
-export interface Transaction {
+  
+export interface TransactionCardProps {
     id: string;
     title: string;
     amount: string;
     category: Category;
     date: string;
-    type: "C" | "D";
-}
-  
-export interface TransactionCardProps {
-    transaction: Transaction;   
+    type: 'positive' | 'negative';
 }

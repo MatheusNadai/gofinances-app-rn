@@ -1,47 +1,71 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
-import TransactionCard from "../../components/TransactionCard";
-import { Transaction } from "../../components/TransactionCard/types";
+import { TransactionCard } from "../../components/TransactionCard";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TransactionCardProps } from "../../components/TransactionCard";
 import { Container, Header, Photo, PowerIcon, User, UserGretting, UserInfo, UserName, UserWrapper, HighlightCards, Transactions, Title, TransactionList, LogoutButton } from "./styles";
 
+import  { format }  from 'date-fns'
+import { useFocusEffect } from "@react-navigation/native";
+
+export interface DataListProps extends TransactionCardProps {
+    id: string;
+}
+
+
 export function Dashboard(){
+  const [transactions, setTransactions] = useState<DataListProps[]>([]);
     
-    const transactions: Transaction[] = [
-        {
-          id: "3213",
-          title: "Desenvolvimento de sites",
-          date: "22/08/2021",
-          amount: "R$ 15.232,00",
-          type: "C",
-          category: { name: "Vendas", slugname: "vendas" },
-        },
-        {
-          id: "23r",
-          title: "Steam Games",
-          date: "22/08/2021",
-          amount: "R$ 1.000,00",
-          type: "D",
-          category: { name: "Compra", slugname: "vendas" },
-        },
-        {
-          id: "2367r",
-          title: "Freelance App",
-          date: "22/08/2021",
-          amount: "R$ 15.232,00",
-          type: "C",
-          category: { name: "Vendas", slugname: "vendas" },
-        },
-        {
-          id: "23323r",
-          title: "Gucci",
-          date: "22/08/2021",
-          amount: "R$ 15.232,00",
-          type: "D",
-          category: { name: "Vestuário", slugname: "compras" },
-        },
-      ];
+    async function loadTransactions(){
+        const dataKey = '@gofinances:transactions';
+        const response = await AsyncStorage.getItem(dataKey);
+        const transactions = response ? JSON.parse(response) : [];
+    
+        const transactionsFormatted: DataListProps[] = transactions
+        .map((item: DataListProps) => {
+    
+          
+    
+          const amount = Number(item.amount)
+          .toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          });
+          
+          const date = Intl.DateTimeFormat('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit'
+          }).format(new Date(item.date));
+    
+          return {
+            id: item.id,
+            name: item.name,
+            amount,
+            type: item.type,
+            category: item.category,
+            date,
+          }
+    
+        });
+    
+        setTransactions(transactionsFormatted);
+        console.log(transactionsFormatted)
+        
+      }
+
+
+
+
+    useEffect(() => {
+        loadTransactions();
+    },[]);
+
+    useFocusEffect(useCallback(() => {
+      loadTransactions();
+    },[]));
 
     return(
         <Container>
@@ -97,9 +121,10 @@ export function Dashboard(){
                     showsVerticalScrollIndicator={false}
                     data={transactions}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <TransactionCard transaction={item} />}
+                    renderItem={({ item }) => <TransactionCard data={item} />}
                 />
              </Transactions>
         </Container>
+
     )
 }

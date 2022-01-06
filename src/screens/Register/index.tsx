@@ -4,6 +4,8 @@ import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from "react-native";
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { useNavigation, ParamListBase, NavigationProp } from '@react-navigation/native';
+import uuid from 'react-native-uuid'
 import { CategorySelectButton } from "../../components/Form/CategorySelectButton";
 import { Input } from "../../components/Form/Input";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,6 +13,7 @@ import { InputForm } from "../../components/Form/InputForm";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { Container, Fields, Form, Header, Title, TransactionsType } from './styles'
 import { CategorySelect } from "../CategorySelect";
+
 
 interface FormData {
     name: string;
@@ -45,6 +48,8 @@ export function Register() {
       } = useForm({
         resolver: yupResolver(schema)
       });
+
+      const { navigate }: NavigationProp<ParamListBase> = useNavigation();
     
 
     function handleTransactionsTypeSelect(type: 'positive' | 'negative'){
@@ -69,10 +74,12 @@ export function Register() {
     
     
         const newTransaction = {
+          id: String(uuid.v4()),
           name: form.name,
           amount: form.amount,
           type: transactionType,
           category: category.key,
+          date: new Date()
         }
 
         try {
@@ -95,7 +102,7 @@ export function Register() {
               name: 'Categoria'
             });
       
-            navigation.navigate('Listagem');
+            navigate('Listagem');
             
           } catch (error) {
             console.log(error);
