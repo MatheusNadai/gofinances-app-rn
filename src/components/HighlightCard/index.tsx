@@ -1,41 +1,56 @@
-import React from "react";
-import theme from "../../global/theme";
+import React from 'react';
+
 import {
   Container,
   Header,
   Title,
+  Icon,
   Footer,
   Amount,
   LastTransaction,
-  Icon,
-} from "./styles";
-import { HighlightCardProps } from "./types";
+} from './styles';
 
-const icon: {
-  [key: string]: { name: string; color: keyof typeof theme.colors };
-} = {
-  C: { name: "arrow-up-circle", color: "success" },
-  D: { name: "arrow-down-circle", color: "attention" },
-  T: { name: "dollar-sign", color: "shape" },
-};
-const HighlightCard = ({
-  amount,
-  title,
-  lastTransition,
+interface Props {
+  type: 'up' | 'down' | 'total';
+  title: string;
+  amount: string;
+  lastTransaction: string;
+}
+
+const icon = {
+  up: 'arrow-up-circle',
+  down: 'arrow-down-circle',
+  total: 'dollar-sign'
+}
+
+
+export function HighlightCard({
   type,
-}: HighlightCardProps) => {
+  title,
+  amount,
+  lastTransaction
+} : Props){
   return (
     <Container type={type}>
       <Header>
-        <Title type={type}>{title}</Title>
-        <Icon name={icon[type].name} color={icon[type].color} />
+        <Title type={type}>
+          {title}
+        </Title>
+        <Icon
+          name={icon[type]}
+          type={type}
+        />
       </Header>
-      <Footer>
-        <Amount type={type}>{amount}</Amount>
-        <LastTransaction type={type}>{lastTransition}</LastTransaction>
-      </Footer>
-    </Container>
-  );
-};
 
-export default HighlightCard;
+      <Footer>
+        <Amount type={type}>
+          {amount}
+        </Amount>
+        <LastTransaction type={type}>
+          {lastTransaction}
+        </LastTransaction>
+      </Footer>
+
+    </Container>
+  )
+}
