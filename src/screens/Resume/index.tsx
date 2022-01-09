@@ -1,4 +1,5 @@
 import React from 'react';
+import { HistoryCard } from '../../components/HistoryCard';
 
 
 import {
@@ -20,9 +21,11 @@ export function Resume(){
       <Header>
         <Title>Resumo por categoria</Title>
       </Header>
-      
-        
-    
+      <HistoryCard
+        title='Compras'
+        amount='R$ 110,00'
+        color='red'
+      />
     </Container>
   )
 }
