@@ -3,7 +3,7 @@
 
 ## Overview
 
-Este aplicativo foi desenvolvido com React Native, usando TypeScript, Styled-Components, react-hook-form🏻, react-navigation, entre outras diversas bibliotecas e tecnologias espetaculares!
+Este aplicativo foi desenvolvido com React Native, usando TypeScript, Styled-Components, react-hook-form, react-navigation, entre outras diversas bibliotecas e tecnologias espetaculares!
 
 Design por Rocketseat  com Figma
 
