@@ -8,7 +8,7 @@ import {
 
 interface Props {
   title: string;
-  amount: number;
+  amount: string;
   color: string;
 }
 

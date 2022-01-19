@@ -4,14 +4,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import {
+  ChartContainer,
   Container,
   Content,
   Header,
   Title,
   
 } from './styles';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useTheme } from '@react-navigation/native';
 import { categories } from '../../utils/categories';
+import { VictoryPie } from 'victory-native';
+import { RFValue } from 'react-native-responsive-fontsize';
+
 
 interface TransactionData {
   type: 'positive' | 'negative';
@@ -25,16 +29,16 @@ interface CategoryData {
   key: string;
   name: string;
   total: number;
-  // totalFormatted: string;
+  totalFormatted: string;
   color: string;
-  // percent: string;
+  percent: string;
 }
 
 export function Resume(){
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
-
+  const theme = useTheme();
 
   async function loadData() {
     setIsLoading(true);
@@ -81,8 +85,8 @@ export function Resume(){
           name: category.name,
           color: category.color,
           total: categorySum,
-          // totalFormatted,
-          // percent
+          totalFormatted,
+          percent
         });
       }
     });
@@ -103,12 +107,28 @@ export function Resume(){
         <Title>Resumo por categoria</Title>
       </Header>
       <Content>
+        <ChartContainer>
+          <VictoryPie
+            data={totalByCategories}
+            colorScale={totalByCategories.map(category => category.color)}
+            style={{
+              labels: {
+                fontSize: RFValue(18),
+                fontWeight: 'bold',
+                fill: theme.colors.border
+              }
+            }}
+            labelRadius={50}
+            x="percent"
+            y="total"
+          />
+        </ChartContainer> 
         {
           totalByCategories.map(item => (
             <HistoryCard
               key={item.key}
               title={item.name}
-              amount={item.total}
+              amount={item.totalFormatted}
               color={item.color}
             />
           ))
