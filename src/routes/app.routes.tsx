@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import { Resume } from '../screens/Resume';
+import { SignIn } from '../screens/SignIn';
 
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -27,6 +28,7 @@ export function AppRoutes(){
             },
         }}
     >
+    
       <Screen
         name="Listagem"
         component={Dashboard}
@@ -40,6 +42,12 @@ export function AppRoutes(){
           ))
         }}
       />
+      
+      <Screen
+        name="SignIn"
+        component={SignIn}
+      />
+    
       <Screen
         name="Cadastrar"
         component={Register}

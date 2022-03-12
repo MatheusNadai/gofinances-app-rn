@@ -2,6 +2,7 @@
   "expo": {
     "name": "gofinances-app-rn",
     "slug": "gofinances-app-rn",
+    "schema": "gofinances-app-rn",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
