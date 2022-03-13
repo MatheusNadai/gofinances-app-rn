@@ -7,8 +7,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from '../screens/Dashboard';
 import { Register } from '../screens/Register';
 import { Resume } from '../screens/Resume';
-import { SignIn } from '../screens/SignIn';
-
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -17,18 +15,17 @@ export function AppRoutes(){
 
   return(
     <Navigator
-        screenOptions={{
-            headerShown: false,
-            tabBarActiveTintColor: theme.colors.secondary,
-            tabBarInactiveTintColor: theme.colors.text,
-            tabBarLabelPosition: 'beside-icon',
-            tabBarStyle: {
-                height: 88,
-                paddingVertical: Platform.OS === 'ios' ? 20 : 0
-            },
-        }}
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: theme.colors.secondary,
+        tabBarInactiveTintColor: theme.colors.text,
+        tabBarLabelPosition: 'beside-icon',
+        tabBarStyle: {
+          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
+          height: 88
+        }
+      }}
     >
-    
       <Screen
         name="Listagem"
         component={Dashboard}
@@ -42,12 +39,7 @@ export function AppRoutes(){
           ))
         }}
       />
-      
-      <Screen
-        name="SignIn"
-        component={SignIn}
-      />
-    
+
       <Screen
         name="Cadastrar"
         component={Register}
@@ -61,6 +53,7 @@ export function AppRoutes(){
           ))
         }}
       />
+
       <Screen
         name="Resumo"
         component={Resume}
@@ -74,7 +67,6 @@ export function AppRoutes(){
           ))
         }}
       />
-      
     </Navigator>
   );
 }

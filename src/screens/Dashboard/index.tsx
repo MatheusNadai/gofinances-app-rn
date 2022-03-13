@@ -26,6 +26,7 @@ import {
   LoadContainer
 } from './styles'
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import { useAuth } from '../../hooks/auth';
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -43,6 +44,7 @@ interface HighlightData {
 }
 
 export function Dashboard(){
+  const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
@@ -161,11 +163,11 @@ export function Dashboard(){
             <UserWrapper>
               <UserInfo>
                 <Photo
-                  source={{ uri: 'https://github.com/MatheusNadai.png'}}
+                  source={{ uri: user.photo}}
                 />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Matheus</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
 
