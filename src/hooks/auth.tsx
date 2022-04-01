@@ -78,28 +78,32 @@ function AuthProvider({ children }: AuthProviderProps ) {
 
   async function signInWithApple() {
     try {
-      const credential = await AppleAuthentication.signInAsync({
-        requestedScopes: [
-          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-          AppleAuthentication.AppleAuthenticationScope.EMAIL,
-        ]
-      });
+        const credential = await AppleAuthentication.signInAsync({
+            requestedScopes: [
+                AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                AppleAuthentication.AppleAuthenticationScope.EMAIL,
+            ]
+        });
 
-      if (credential) {
-        const userLogged = {
-          id: String(credential.user),
-          email: credential.email!,
-          name: credential.fullName!.givenName!,
-          photo: undefined
-        };
+        if(credential) {
+          
+            const name = credential.fullName!.givenName!;
+            const photo = `https://ui-avatars.com/api/?name=${name}&length=1`;
 
-        setUser(userLogged);
-        await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
-      }
+               const userLogged = {
+                id: String(credential.user),
+                email: credential.email!,
+                name,
+                photo,
+            };
+            setUser(userLogged);
+            await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
+        }
+
     } catch (error) {
-      throw new Error('Error');
+        throw new Error('err');
     }
-  }
+}
 
   useEffect(() => {
     async function loadUserStorageDate() {
