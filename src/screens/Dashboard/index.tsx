@@ -44,7 +44,7 @@ interface HighlightData {
 }
 
 export function Dashboard(){
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
@@ -171,7 +171,7 @@ export function Dashboard(){
                 </User>
               </UserInfo>
 
-              <LogoutButton onPress={() => {}}>
+              <LogoutButton onPress={signOut}>
                 <Icon name="power"/>
               </LogoutButton>
             </UserWrapper>

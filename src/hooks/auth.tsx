@@ -28,6 +28,7 @@ interface IAuthContextData {
   user: User;
   signInWithGoogle(): Promise<void>;
   signInWithApple(): Promise<void>;
+  signOut(): Promise<void>;
 }
 
 interface AuthorizationResponse {
@@ -59,7 +60,7 @@ function AuthProvider({ children }: AuthProviderProps ) {
       if (type === 'success') {
         const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`);
         const userInfo = await response.json();
-        console.log(userInfo)
+     
         const userLogged = {
           id: userInfo.id,
           email: userInfo.email,
@@ -115,12 +116,19 @@ function AuthProvider({ children }: AuthProviderProps ) {
     loadUserStorageDate();
   },[]);
   
+  async function signOut() {
+    setUser({} as User);
+
+    await AsyncStorage.removeItem(userStorageKey);
+  }
+
 
   return (
     <AuthContext.Provider value={{
       user,
       signInWithGoogle,
-      signInWithApple
+      signInWithApple,
+      signOut
     }}>
       {children}
     </AuthContext.Provider>
