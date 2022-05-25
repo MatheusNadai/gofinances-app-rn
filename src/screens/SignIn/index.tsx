@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Platform} from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleSvg from '../../assets/apple.svg';
@@ -71,11 +71,14 @@ export function SignIn() {
             onPress={handleSignInWithGoogle}
           />
 
+        { Platform.OS === 'ios' && 
           <SignInSocialButton
             title="Entrar com Apple"
             svg={AppleSvg}
             onPress={handleSignInWithApple}
           />
+        }
+          
         </FooterWrapper>
       </Footer>
     </Container>

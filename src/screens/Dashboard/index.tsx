@@ -55,16 +55,22 @@ export function Dashboard(){
     collection: DataListProps[],
     type: 'positive' | 'negative'
   ){
-    const lastTransaction = new Date(
-    Math.max.apply(Math, collection
+
+    const collectionFiltered = collection
     .filter(transaction => transaction.type === type)
+
+
+    
+
+    const lastTransaction = new Date(
+    Math.max.apply(Math, collectionFiltered
     .map(transaction => new Date(transaction.date).getTime())))
 
     return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR', { month: 'long' })}`;
   }
 
   async function loadTransactions(){
-    const dataKey = '@gofinances:transactions';
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const transactions = response ? JSON.parse(response) : [];
 
