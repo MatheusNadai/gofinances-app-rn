@@ -59,7 +59,6 @@ export function Dashboard(){
     const collectionFiltered = collection
     .filter(transaction => transaction.type === type)
 
-
     
 
     const lastTransaction = new Date(
